@@ -1,0 +1,173 @@
+[berg] [/home/b/b_mihigo] > cd COEN311/lab2
+[berg] [/home/b/b_mihigo/COEN311/lab2] > gdb
+GNU gdb (GDB) 12.1
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-pc-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word".
+(gdb) ^[[200~
+Undefined command: "".  Try "help".
+(gdb) target extended-remote localhost:3333
+Remote debugging using localhost:3333
+warning: while parsing target description (at line 4): Target description specified unknown architecture "arm"
+warning: Could not load XML target description; ignoring
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+Truncated register 16 in remote 'g' packet
+(gdb) ^[[200~target extended-remote localhost:3333~
+Undefined command: "".  Try "help".
+(gdb) target extended-remote localhost:3333
+Remote debugging using localhost:3333
+warning: while parsing target description (at line 4): Target description specified unknown architecture "arm"
+warning: Could not load XML target description; ignoring
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+Truncated register 16 in remote 'g' packet
+(gdb) monitor reset halt
+"monitor" command not supported by this target.
+(gdb) target extended-remote localhost:3333
+Remote debugging using localhost:3333
+warning: while parsing target description (at line 4): Target description specified unknown architecture "arm"
+warning: Could not load XML target description; ignoring
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+Truncated register 16 in remote 'g' packet
+(gdb) monitor reset halt
+"monitor" command not supported by this target.
+(gdb) load
+No executable file specified.
+Use the "file" or "exec-file" command.
+(gdb) quit
+[berg] [/home/b/b_mihigo/COEN311/lab2] > ls 
+lab2_commands.sh  lab2.elf  lab2.ld  lab2.lst  lab2.o  lab2.s  stm32f334r8_ALL_IN_RAM.ld
+[berg] [/home/b/b_mihigo/COEN311/lab2] > more lab2.elf
+
+******** lab2.elf: Not a text file ********
+
+[berg] [/home/b/b_mihigo/COEN311/lab2] > arm-none-eabi-gdb lab2.elf
+arm-none-eabi-gdb: Command not found.
+[berg] [/home/b/b_mihigo/COEN311/lab2] > more load COEN311
+load: No such file or directory
+COEN311: No such file or directory
+[berg] [/home/b/b_mihigo/COEN311/lab2] > module load COEN311
+[berg] [/home/b/b_mihigo/COEN311/lab2] > arm-none-eabi-gdb lab2.elf
+GNU gdb (GNU Toolchain for the Arm Architecture 11.2-2022.02 (arm-11.14)) 11.2.90.20220202-git
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "--host=x86_64-pc-linux-gnu --target=arm-none-eabi".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://bugs.linaro.org/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from lab2.elf...
+(gdb) target extended-remote localhost:3333
+Remote debugging using localhost:3333
+0x00000000 in ?? ()
+(gdb) monitor reset halt
+Unable to match requested speed 1000 kHz, using 950 kHz
+Unable to match requested speed 1000 kHz, using 950 kHz
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x800000ec msp: 0x20000400
+(gdb) load
+Loading section .text, size 0x10c lma 0x20000000
+Loading section .data, size 0x3 lma 0x2000010c
+Start address 0x20000000, load size 271
+Transfer rate: 37 KB/sec, 135 bytes/write.
+(gdb) break start 
+Breakpoint 1 at 0x200000ec: file lab2.s, line 17.
+(gdb) continue
+Continuing.
+
+Breakpoint 1, start () at lab2.s:17
+17	    ldr r0, =mick @ load address of mick into r0
+(gdb) x/3xb &mick
+0x2000010c:	0x01	0x02	0x00
+(gdb) stepi
+halted: PC: 0x200000ee
+18	    ldrb r1, [r0] @ load r1 with memory byte contents of mick
+(gdb) disassemble
+Dump of assembler code for function start:
+   0x200000ec <+0>:	ldr	r0, [pc, #16]	; (0x20000100 <stop+4>)
+=> 0x200000ee <+2>:	ldrb	r1, [r0, #0]
+   0x200000f0 <+4>:	ldr	r0, [pc, #16]	; (0x20000104 <stop+8>)
+   0x200000f2 <+6>:	ldrb	r2, [r0, #0]
+   0x200000f4 <+8>:	add.w	r3, r2, r1
+   0x200000f8 <+12>:	ldr	r0, [pc, #12]	; (0x20000108 <stop+12>)
+   0x200000fa <+14>:	strb	r3, [r0, #0]
+End of assembler dump.
+(gdb) x/4xb 0x20000100
+0x20000100 <stop+4>:	0x0c	0x01	0x00	0x20
+(gdb) x/1xb &keith
+0x2000010d:	0x02
+(gdb) x/1xb &result
+0x2000010e:	0x00
+(gdb) x/15xb 0x20000100
+0x20000100 <stop+4>:	0x0c	0x01	0x00	0x20	0x0d	0x01	0x00	0x20
+0x20000108 <stop+12>:	0x0e	0x01	0x00	0x20	0x01	0x02	0x00
+(gdb) stepi
+halted: PC: 0x200000f0
+19	    ldr r0, =keith @ load address of keith into r0
+(gdb) stepi
+halted: PC: 0x200000f2
+20	    ldrb r2, [r0] @ load r2 with memory byte contents of keith
+(gdb) stepi
+halted: PC: 0x200000f4
+21	    add r3, r2, r1 @ r3 = r2 + r1
+(gdb) stepi
+halted: PC: 0x200000f8
+22	    ldr r0, =result @ load address of result into r0
+(gdb) stepi
+halted: PC: 0x200000fa
+23	    strb r3, [r0] @ store sum into memory at location result
+(gdb) info register
+r0             0x2000010e          536871182
+r1             0x1                 1
+r2             0x2                 2
+r3             0x3                 3
+r4             0x0                 0
+r5             0x0                 0
+r6             0x0                 0
+r7             0x0                 0
+r8             0x0                 0
+r9             0x0                 0
+r10            0x0                 0
+r11            0x0                 0
+r12            0x0                 0
+sp             0x20000400          0x20000400
+lr             0xffffffff          -1
+pc             0x200000fa          0x200000fa <start+14>
+xPSR           0x41000003          1090519043
+fpscr          0x0                 0
+msp            0x20000400          0x20000400
+psp            0x0                 0x0
+primask        0x0                 0
+basepri        0x0                 0
+faultmask      0x0                 0
+control        0x0                 0
+(gdb) stepi
+halted: PC: 0x200000fc
+stop () at lab2.s:24
+24	stop: b stop
+(gdb) stepi
+halted: PC: 0x200000fc
+24	stop: b stop
+(gdb) x/1xb &result
+0x2000010e:	0x03
+(gdb) 

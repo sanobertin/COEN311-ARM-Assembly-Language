@@ -1,0 +1,21 @@
+ARM GAS  lab1.s 			page 1
+
+
+   1              	.syntax unified 
+   2              	.cpu cortex-m4
+   3              	.thumb
+   4              	
+   5 0000 00040020 	.word 0x20000400
+   6 0004 ED000080 	.word 0x800000ed
+   7 0008 00000000 	.space 0xe4
+   7      00000000 
+   7      00000000 
+   7      00000000 
+   7      00000000 
+   8              	
+   9              	start:
+  10 00ec 4FF00400 		mov r0, #4
+  11 00f0 4FF00501 		mov r1, #5
+  12 00f4 01EB0002 		add r2, r1, r0
+  13              	
+  14 00f8 FEE7     	stop: b stop

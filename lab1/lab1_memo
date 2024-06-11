@@ -1,0 +1,326 @@
+[bishop] [/home/b/b_mihigo] > cd COEN311
+[bishop] [/home/b/b_mihigo/COEN311] > mkdir lab1
+[bishop] [/home/b/b_mihigo/COEN311] > ls -al
+total 48
+drwxrwx---  3 b_mihigo b_mihigo  4096 May 16 18:20 .
+drwx------ 41 b_mihigo b_mihigo  8192 May 16 18:16 ..
+-rwxrwx---  1 b_mihigo b_mihigo 67168 May 16 18:01 a.out
+drwxrwx---  2 b_mihigo b_mihigo  4096 May 16 18:20 lab1
+-rw-rw----  1 b_mihigo b_mihigo     0 May 16 18:01 lab1.elf
+-rw-rw----  1 b_mihigo b_mihigo   529 May 16 17:58 lab1.lst
+-rw-rw----  1 b_mihigo b_mihigo  1636 May 16 17:58 lab1.o
+-rw-rw----  1 b_mihigo b_mihigo   148 May 16 17:58 lab1.s
+-rw-r--r--  1 b_mihigo b_mihigo  7188 May 16 18:09 temp_terminal
+[bishop] [/home/b/b_mihigo/COEN311] > rm a.out
+rm: remove regular file ‘a.out’? y
+[bishop] [/home/b/b_mihigo/COEN311] > ls -al
+total 36
+drwxrwx---  3 b_mihigo b_mihigo 4096 May 16 18:21 .
+drwx------ 41 b_mihigo b_mihigo 8192 May 16 18:16 ..
+drwxrwx---  2 b_mihigo b_mihigo 4096 May 16 18:20 lab1
+-rw-rw----  1 b_mihigo b_mihigo    0 May 16 18:01 lab1.elf
+-rw-rw----  1 b_mihigo b_mihigo  529 May 16 17:58 lab1.lst
+-rw-rw----  1 b_mihigo b_mihigo 1636 May 16 17:58 lab1.o
+-rw-rw----  1 b_mihigo b_mihigo  148 May 16 17:58 lab1.s
+-rw-r--r--  1 b_mihigo b_mihigo 7188 May 16 18:09 temp_terminal
+[bishop] [/home/b/b_mihigo/COEN311] > mv lab1.elf /lab1
+mv: cannot create regular file ‘/lab1’: Permission denied
+[bishop] [/home/b/b_mihigo/COEN311] > mv lab1.elf ~/COEN311/lab1/
+[bishop] [/home/b/b_mihigo/COEN311] > mv lab1.lst ~/COEN311/lab1/
+[bishop] [/home/b/b_mihigo/COEN311] > mv lab1.o ~/COEN311/lab1/
+[bishop] [/home/b/b_mihigo/COEN311] > mv lab1.s ~/COEN311/lab1/
+[bishop] [/home/b/b_mihigo/COEN311] > ls -al
+total 24
+drwxrwx---  3 b_mihigo b_mihigo 4096 May 16 18:22 .
+drwx------ 41 b_mihigo b_mihigo 8192 May 16 18:16 ..
+drwxrwx---  2 b_mihigo b_mihigo 4096 May 16 18:22 lab1
+-rw-r--r--  1 b_mihigo b_mihigo 7188 May 16 18:09 temp_terminal
+[bishop] [/home/b/b_mihigo/COEN311] > cd lab1
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > arm-none-eabi-as -g lab1.s -o lab1.o -al=lab1.lst
+arm-none-eabi-as: Command not found.
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > cd ../
+[bishop] [/home/b/b_mihigo/COEN311] > module load COEN311
+[bishop] [/home/b/b_mihigo/COEN311] > cd lab1
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > arm-none-eabi-as -g lab1.s -o lab1.o -al=lab1.lst
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > arm-none-eabi-ld lab1.o lab1.elf -Ttext=0x8000000
+arm-none-eabi-ld: warning: cannot find entry symbol _start; defaulting to 0000000008000000
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > arm-none-eabi-gdb lab1.elf 
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > more lab1.elf
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > ls -al
+total 32
+drwxrwx--- 2 b_mihigo b_mihigo  4096 May 16 18:24 .
+drwxrwx--- 3 b_mihigo b_mihigo  4096 May 16 18:22 ..
+-rwxrwx--- 1 b_mihigo b_mihigo 67176 May 16 18:24 a.out
+-rw-rw---- 1 b_mihigo b_mihigo     0 May 16 18:01 lab1.elf
+-rw-rw---- 1 b_mihigo b_mihigo   529 May 16 18:23 lab1.lst
+-rw-rw---- 1 b_mihigo b_mihigo  1640 May 16 18:23 lab1.o
+-rw-rw---- 1 b_mihigo b_mihigo   148 May 16 17:58 lab1.s
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > more lab1.elf
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > arm-none-eabi-ld lab1.o lab1.elf -Ttext=0x8000000
+arm-none-eabi-ld: warning: cannot find entry symbol _start; defaulting to 0000000008000000
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > more lab1.elf
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > ls -al
+total 32
+drwxrwx--- 2 b_mihigo b_mihigo  4096 May 16 18:28 .
+drwxrwx--- 3 b_mihigo b_mihigo  4096 May 16 18:22 ..
+-rwxrwx--- 1 b_mihigo b_mihigo 67176 May 16 18:28 a.out
+-rw-rw---- 1 b_mihigo b_mihigo     0 May 16 18:01 lab1.elf
+-rw-rw---- 1 b_mihigo b_mihigo   529 May 16 18:23 lab1.lst
+-rw-rw---- 1 b_mihigo b_mihigo  1640 May 16 18:23 lab1.o
+-rw-rw---- 1 b_mihigo b_mihigo   148 May 16 17:58 lab1.s
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > rm lab1.elf
+rm: remove regular empty file ‘lab1.elf’? y
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > arm-none-eabi-ld lab1.o lab1.elf -Ttext=0x8000000
+arm-none-eabi-ld: cannot find lab1.elf: No such file or directory
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > more lab1.s
+.syntax unified 
+.cpu cortex-m4
+.thumb
+
+.word 0x20000400
+.word 0x800000ed
+.space 0xe4
+
+start:
+	mov r0, #4
+	mov r1, #5
+	add r2, r1, r0
+
+stop: b stop
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > 
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > 
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > arm-none-eabi-ld lab1.o -o lab1.elf -Ttext=0x8000000
+arm-none-eabi-ld: warning: cannot find entry symbol _start; defaulting to 0000000008000000
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > more lab1.elf
+
+******** lab1.elf: Not a text file ********
+
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > more lab1.lst
+ARM GAS  lab1.s 			page 1
+
+
+   1              	.syntax unified 
+   2              	.cpu cortex-m4
+   3              	.thumb
+   4              	
+   5 0000 00040020 	.word 0x20000400
+   6 0004 ED000080 	.word 0x800000ed
+   7 0008 00000000 	.space 0xe4
+   7      00000000 
+   7      00000000 
+   7      00000000 
+   7      00000000 
+   8              	
+   9              	start:
+  10 00ec 4FF00400 		mov r0, #4
+  11 00f0 4FF00501 		mov r1, #5
+  12 00f4 01EB0002 		add r2, r1, r0
+  13              	
+  14 00f8 FEE7     	stop: b stop
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > 
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > arm-none-eabi-as -g lab1.s -o lab1.o -al=lab1.lst
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > ls 
+lab1.elf  lab1.lst  lab1.o  lab1.s
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > ls -al
+total 32
+drwxrwx--- 2 b_mihigo b_mihigo  4096 May 16 18:31 .
+drwxrwx--- 3 b_mihigo b_mihigo  4096 May 16 18:22 ..
+-rwxrwx--- 1 b_mihigo b_mihigo 67176 May 16 18:30 lab1.elf
+-rw-rw---- 1 b_mihigo b_mihigo   529 May 16 18:31 lab1.lst
+-rw-rw---- 1 b_mihigo b_mihigo  1640 May 16 18:31 lab1.o
+-rw-rw---- 1 b_mihigo b_mihigo   148 May 16 17:58 lab1.s
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > arm-none-eabi-ld lab1.o -o lab1.elf -Ttext=0x8000000
+arm-none-eabi-ld: warning: cannot find entry symbol _start; defaulting to 0000000008000000
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > ls -al
+total 32
+drwxrwx--- 2 b_mihigo b_mihigo  4096 May 16 18:35 .
+drwxrwx--- 3 b_mihigo b_mihigo  4096 May 16 18:22 ..
+-rwxrwx--- 1 b_mihigo b_mihigo 67176 May 16 18:35 lab1.elf
+-rw-rw---- 1 b_mihigo b_mihigo   529 May 16 18:31 lab1.lst
+-rw-rw---- 1 b_mihigo b_mihigo  1640 May 16 18:31 lab1.o
+-rw-rw---- 1 b_mihigo b_mihigo   148 May 16 17:58 lab1.s
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > more lab1.elf
+
+******** lab1.elf: Not a text file ********
+
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > arm-none-eabi-gdb lab1.elf
+GNU gdb (GNU Toolchain for the Arm Architecture 11.2-2022.02 (arm-11.14)) 11.2.90.20220202-git
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "--host=x86_64-pc-linux-gnu --target=arm-none-eabi".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://bugs.linaro.org/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from lab1.elf...
+(gdb) target extended-remote localhost:3333
+Remote debugging using localhost:3333
+0x00000000 in ?? ()
+(gdb) monitor reset halt
+Unable to match requested speed 1000 kHz, using 950 kHz
+Unable to match requested speed 1000 kHz, using 950 kHz
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x800000ec msp: 0x20000400
+(gdb) load 
+Loading section .text, size 0xfa lma 0x8000000
+Start address 0x08000000, load size 250
+Transfer rate: 726 bytes/sec, 250 bytes/write.
+(gdb) break start 
+Breakpoint 1 at 0x80000ec: file lab1.s, line 10.
+Note: automatically using hardware breakpoints for read-only addresses.
+(gdb) info registers
+r0             0x0                 0
+r1             0x0                 0
+r2             0x0                 0
+r3             0x0                 0
+r4             0x0                 0
+r5             0x0                 0
+r6             0x0                 0
+r7             0x0                 0
+r8             0x0                 0
+r9             0x0                 0
+r10            0x0                 0
+r11            0x0                 0
+r12            0x0                 0
+sp             0x200003e0          0x200003e0
+lr             0xfffffff9          -7
+pc             0x8000000           0x8000000
+xPSR           0x1000003           16777219
+fpscr          0x0                 0
+msp            0x20000400          0x20000400
+psp            0x0                 0x0
+primask        0x0                 0
+basepri        0x0                 0
+faultmask      0x0                 0
+control        0x0                 0
+(gdb) continue
+Continuing.
+
+Breakpoint 1, start () at lab1.s:10
+10		mov r0, #4
+(gdb) info registers
+r0             0x0                 0
+r1             0x0                 0
+r2             0x0                 0
+r3             0x0                 0
+r4             0x0                 0
+r5             0x0                 0
+r6             0x0                 0
+r7             0x0                 0
+r8             0x0                 0
+r9             0x0                 0
+r10            0x0                 0
+r11            0x0                 0
+r12            0x0                 0
+sp             0x20000400          0x20000400
+lr             0xffffffff          -1
+pc             0x80000ec           0x80000ec <start>
+xPSR           0x41000003          1090519043
+fpscr          0x0                 0
+msp            0x20000400          0x20000400
+psp            0x0                 0x0
+primask        0x0                 0
+basepri        0x0                 0
+faultmask      0x0                 0
+control        0x0                 0
+(gdb) stepi
+halted: PC: 0x080000f0
+11		mov r1, #5
+(gdb) info registers
+r0             0x4                 4
+r1             0x0                 0
+r2             0x0                 0
+r3             0x0                 0
+r4             0x0                 0
+r5             0x0                 0
+r6             0x0                 0
+r7             0x0                 0
+r8             0x0                 0
+r9             0x0                 0
+r10            0x0                 0
+r11            0x0                 0
+r12            0x0                 0
+sp             0x20000400          0x20000400
+lr             0xffffffff          -1
+pc             0x80000f0           0x80000f0 <start+4>
+xPSR           0x41000003          1090519043
+fpscr          0x0                 0
+msp            0x20000400          0x20000400
+psp            0x0                 0x0
+primask        0x0                 0
+basepri        0x0                 0
+faultmask      0x0                 0
+control        0x0                 0
+(gdb) stepi
+halted: PC: 0x080000f4
+12		add r2, r1, r0
+(gdb) info registers
+r0             0x4                 4
+r1             0x5                 5
+r2             0x0                 0
+r3             0x0                 0
+r4             0x0                 0
+r5             0x0                 0
+r6             0x0                 0
+r7             0x0                 0
+r8             0x0                 0
+r9             0x0                 0
+r10            0x0                 0
+r11            0x0                 0
+r12            0x0                 0
+sp             0x20000400          0x20000400
+lr             0xffffffff          -1
+pc             0x80000f4           0x80000f4 <start+8>
+xPSR           0x41000003          1090519043
+fpscr          0x0                 0
+msp            0x20000400          0x20000400
+psp            0x0                 0x0
+primask        0x0                 0
+basepri        0x0                 0
+faultmask      0x0                 0
+control        0x0                 0
+(gdb) stepi
+halted: PC: 0x080000f8
+stop () at lab1.s:14
+14	stop: b stop
+(gdb) info registers
+r0             0x4                 4
+r1             0x5                 5
+r2             0x9                 9
+r3             0x0                 0
+r4             0x0                 0
+r5             0x0                 0
+r6             0x0                 0
+r7             0x0                 0
+r8             0x0                 0
+r9             0x0                 0
+r10            0x0                 0
+r11            0x0                 0
+r12            0x0                 0
+sp             0x20000400          0x20000400
+lr             0xffffffff          -1
+pc             0x80000f8           0x80000f8 <stop>
+xPSR           0x41000003          1090519043
+fpscr          0x0                 0
+msp            0x20000400          0x20000400
+psp            0x0                 0x0
+primask        0x0                 0
+basepri        0x0                 0
+faultmask      0x0                 0
+control        0x0                 0
+(gdb) quit
+A debugging session is active.
+
+	Inferior 1 [Remote target] will be detached.
+
+Quit anyway? (y or n) y
+Detaching from program: /nfs/home/b/b_mihigo/COEN311/lab1/lab1.elf, Remote target
+[Inferior 1 (Remote target) detached]
+[bishop] [/home/b/b_mihigo/COEN311/lab1] > 

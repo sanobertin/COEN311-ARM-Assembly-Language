@@ -1,0 +1,51 @@
+ARM GAS  lab4.s 			page 1
+
+
+   1              	.syntax unified 
+   2              	.cpu cortex-m4 
+   3              	.thumb 
+   4              	
+   5 0000 00040020 	.word 0x20000400
+   6 0004 ED000008 	.word 0x80000ed
+   7 0008 00000000 	.space 0xe4
+   7      00000000 
+   7      00000000 
+   7      00000000 
+   7      00000000 
+   8              	
+   9              	.data 
+  10 0000 6A754D70 	message: .ascii "juMping JAck flaSh #1" @ array of size 21
+  10      696E6720 
+  10      4A41636B 
+  10      20666C61 
+  10      53682023 
+  11 0015 00       	lastchar: .byte 0
+  12              	
+  13              	.text 
+  14              	
+  15              	start:
+  16 00ec 4FF07A0A 	    mov r10, #122
+  17 00f0 4FF06109 	    mov r9, #97
+  18              	    @ r9 and r10 are for ascii lower characters bounds
+  19 00f4 094C     	    ldr r4, =message
+  20              	    @ldr r4, =savemessage
+  21 00f6 4FF00002 	    mov r2, #0
+  22 00fa 4FF00005 	    mov r5, #0
+  23              	loopinmessage:
+  24 00fe A15C     	    ldrb r1, [r4, r2]
+  25 0100 4945     	    cmp r1, r9 @ check if less than 'a'
+  26 0102 06DB     	    blt skip
+  27              	    
+  28 0104 5145     	    cmp r1, r10 @ check if greater than 'z'
+  29 0106 04DC     	    bgt skip
+  30              	
+  31 0108 8D42     	    cmp r5, r1
+  32 010a 05D0     	    beq stop @ r2 iteration reaches null point then end the loop
+  33              	
+  34 010c A1F12001 	    sub r1, r1, #32
+  35 0110 A154     	    strb r1, [r4, r2]
+  36 0112 02F10102 	skip:add r2, r2, #1 @ increment
+  37 0116 F2E7     	    b loopinmessage
+  38              	
+  39 0118 FEE70000 	stop: b stop
+  39      00000000 
