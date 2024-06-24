@@ -1,0 +1,58 @@
+ARM GAS  exam.s 			page 1
+
+
+   1              	@lab exam
+   2              	@ 
+   3              	@ June 2024 
+   4              	@ Authour: Bertin Mihigo Sano 
+   5              	@ ID: 40157663 
+   6              	
+   7              	.syntax unified 
+   8              	.cpu cortex-m4 
+   9              	.thumb 
+  10              	
+  11 0000 00040020 	.word 0x20000400
+  12 0004 ED000008 	.word 0x80000ed
+  13 0008 00000000 	.space 0xe4
+  13      00000000 
+  13      00000000 
+  13      00000000 
+  13      00000000 
+  14              	
+  15              	.data 
+  16 0000 01FE03FC 	number: .byte 1, -2, 3, -4, 5
+  16      05
+  17 0005 00       	sum: .space 0x1
+  18              	
+  19              	.text 
+  20              	
+  21              	start: 
+  22 00ec A2EB0202 	sub r2, r2, r2
+  23 00f0 A1EB0101 	sub r1, r1, r1
+  24 00f4 A0EB0000 	sub r0, r0, r0 
+  25 00f8 A3EB0303 	sub r3, r3, r3
+  26 00fc A4EB0404 	sub r4, r4, r4
+  27 0100 A5EB0505 	sub r5, r5, r5
+  28              	
+  29 0104 4FF00002 	mov r2, #0 @ holds the sum 
+  30 0108 4FF00003 	mov r3, #0 @ keep disp
+  31              	
+  32 010c 0548     	ldr r0, =number 
+  33              	
+  34              	loopinarray:
+  35 010e 10F8014B 	ldrb r4, [r0], #1
+  36 0112 03F10103 	add r3, r3, #1
+  37              	
+  38 0116 052C     	cmp r4, #5 
+  39 0118 F9DD     	ble loopinarray 
+  40              	
+  41 011a 2244     	add r2, r2, r4 
+  42 011c 042B     	cmp r3, #4 
+  43 011e F6DB     	blt loopinarray
+  44              	
+  45              	
+  46 0120 014D     	ldr r5, =sum 
+  47 0122 2A70     	strb r2, [r5]
+  48              	
+  49 0124 00000000 	stop: .end 
+  49      05000000 

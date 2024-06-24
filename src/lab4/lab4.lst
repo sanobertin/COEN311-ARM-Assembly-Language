@@ -1,0 +1,54 @@
+ARM GAS  lab4.s 			page 1
+
+
+   1              	@laboratory 4 experiment 
+   2              	@ An assembly program that converts all lowercase characters in a string to uppercase characters.
+   3              	@ June 2024 
+   4              	@ Authour: Bertin Mihigo Sano 
+   5              	@ ID: 40157663 
+   6              	
+   7              	.syntax unified 
+   8              	.cpu cortex-m4 
+   9              	.thumb 
+  10              	
+  11 0000 00040020 	.word 0x20000400
+  12 0004 ED000008 	.word 0x80000ed
+  13 0008 00000000 	.space 0xe4
+  13      00000000 
+  13      00000000 
+  13      00000000 
+  13      00000000 
+  14              	
+  15              	.data 
+  16 0000 6A754D70 	message: .ascii "juMping JAck flaSh #1" @ array of size 21
+  16      696E6720 
+  16      4A41636B 
+  16      20666C61 
+  16      53682023 
+  17 0015 00       	lastchar: .byte 0x00 @ null character
+  18              	
+  19              	.text 
+  20              	start:
+  21 00ec 4FF07A0A 	    mov r10, #122
+  22 00f0 4FF06109 	    mov r9, #97
+  23              	    @ r9 and r10 are for ascii lower characters bounds
+  24 00f4 0748     	    ldr r0, =message @ load the address of message into r0
+  25 00f6 4FF00001 	    mov r1, #0 @ iterator
+  26              	loopinmessage:
+  27 00fa 425C     	    ldrb r2, [r0, r1]
+  28 00fc 002A     	    cmp r2, #0 @ check if null
+  29 00fe 09D0     	    beq endloop @ r1 iteration reaches null point then end the loop
+  30              	
+  31 0100 4A45     	    cmp r2, r9 @ check if less than 'a'
+  32 0102 04DB     	    blt skip
+  33              	    
+  34 0104 5245     	    cmp r2, r10 @ check if greater than 'z'
+  35 0106 02DC     	    bgt skip
+  36              	
+  37 0108 A2F12002 	    sub r2, r2, #32
+  38 010c 4254     	    strb r2, [r0, r1]
+  39              	skip:
+  40 010e 01F10101 	    add r1, r1, #1 @ increment
+  41 0112 F2E7     	    b loopinmessage
+  42              	
+  43 0114 00000000 	endloop:     .end
